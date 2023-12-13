@@ -1,0 +1,6 @@
+@SmartBankAPI_HostAddress = http://localhost:5076
+
+GET {{SmartBankAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
