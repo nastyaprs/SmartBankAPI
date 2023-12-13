@@ -10,6 +10,7 @@
         public string PassportNumber { get; set; } = null!;
         public string Phone { get; set; } = null!;
         public string Email { get; set; } = null!;
+        public string PasswordHash { get; set; } = string.Empty;
         public bool IsAdmin { get; set; } = false;
         public int AddressId { get; set; } 
         public Address Address { get; set; } = null!;

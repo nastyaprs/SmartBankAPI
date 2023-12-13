@@ -21,8 +21,4 @@
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\SmartBank.Application\SmartBank.BLL.csproj" />
-  </ItemGroup>
-
 </Project>

@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SmartBank.Application\SmartBank.BLL.csproj" />
     <ProjectReference Include="..\SmartBank.DAL\SmartBank.DAL.csproj" />
   </ItemGroup>
 

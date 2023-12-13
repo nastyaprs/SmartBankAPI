@@ -3,15 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBank.API", "SmartBankAPI\SmartBank.API.csproj", "{B345F093-AB01-4573-BD98-4C8B32B38694}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBank.API", "SmartBankAPI\SmartBank.API.csproj", "{B345F093-AB01-4573-BD98-4C8B32B38694}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1334BBA2-5D2A-46E2-AAEA-2746B049EAF7} = {1334BBA2-5D2A-46E2-AAEA-2746B049EAF7}
 		{E31CE654-D368-481D-AA63-455B2E70045E} = {E31CE654-D368-481D-AA63-455B2E70045E}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBank.BLL", "SmartBank.Application\SmartBank.BLL.csproj", "{1334BBA2-5D2A-46E2-AAEA-2746B049EAF7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBank.BLL", "SmartBank.Application\SmartBank.BLL.csproj", "{1334BBA2-5D2A-46E2-AAEA-2746B049EAF7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E31CE654-D368-481D-AA63-455B2E70045E} = {E31CE654-D368-481D-AA63-455B2E70045E}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBank.DAL", "SmartBank.DAL\SmartBank.DAL.csproj", "{E31CE654-D368-481D-AA63-455B2E70045E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBank.DAL", "SmartBank.DAL\SmartBank.DAL.csproj", "{E31CE654-D368-481D-AA63-455B2E70045E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
