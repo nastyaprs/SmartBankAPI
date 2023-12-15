@@ -6,5 +6,6 @@ namespace SmartBank.BLL.Interfaces.IServices
     {
         Task Register(NewUserDto newUserDto);
         bool UserExists(string email);
+        string Login(UserLoginDto userLoginDto);
     }
 }

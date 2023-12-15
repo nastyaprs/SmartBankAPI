@@ -11,7 +11,7 @@
         public string Phone { get; set; } = null!;
         public string Email { get; set; } = null!;
         public string PasswordHash { get; set; } = string.Empty;
-        public bool IsAdmin { get; set; } = false;
+        public string Role { get; set; } = string.Empty;
         public int AddressId { get; set; } 
         public Address Address { get; set; } = null!;
         public DateTime DateIn { get; set; }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SmartBank.BLL.Dtos.UserDtos;
+using SmartBank.BLL.Helper.Constants;
 using SmartBank.BLL.Interfaces.IServices;
 
 namespace SmartBank.API.Controllers
@@ -28,6 +29,19 @@ namespace SmartBank.API.Controllers
 
             await _userService.Register(newUser);
             return Ok();
+        }
+
+        [HttpPost, Route("login")]
+        public async Task<IActionResult> Login([FromBody] UserLoginDto userLoginDto)
+        {
+            var result = _userService.Login(userLoginDto);
+
+            if(result == ErrorMessages.UserNotFound || result == ErrorMessages.WrongPassword)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
         }
     }
 }
