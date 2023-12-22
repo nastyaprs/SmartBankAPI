@@ -8,6 +8,8 @@ using SmartBank.BLL.Interfaces.IRepositories;
 using SmartBank.BLL.Repositories;
 using SmartBank.BLL.Services;
 using SmartBank.DAL.Data;
+using SmartBank.DAL.Interfaces;
+using SmartBank.DAL.Repositories;
 using SmartBank.DAL.Repository;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text;
@@ -45,6 +47,10 @@ builder.Services.AddAuthentication().AddJwtBearer(options =>
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<ICardRepository, CardRepository>();
+builder.Services.AddScoped<ICardService, CardService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
 
 var app = builder.Build();

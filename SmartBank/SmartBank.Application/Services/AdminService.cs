@@ -1,22 +1,23 @@
 ﻿using SmartBank.BLL.Dtos.AddressDtos;
 using SmartBank.BLL.Dtos.UserDtos;
+using SmartBank.BLL.Helper.Enums;
 using SmartBank.BLL.Interfaces;
 using SmartBank.BLL.Interfaces.IRepositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SmartBank.DAL.Models;
 
 namespace SmartBank.BLL.Services
 {
     public class AdminService: IAdminService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IAccountService _accountService;
+        private readonly ICardService _cardService;
 
-        public AdminService(IUserRepository userRepository)
+        public AdminService(IUserRepository userRepository, IAccountService accountService, ICardService cardService)
         {
+            _accountService = accountService;
             _userRepository = userRepository;
+            _cardService = cardService;
         }
 
         public List<FullUserDto> GetUnverifiedUsers()
@@ -58,6 +59,14 @@ namespace SmartBank.BLL.Services
             var user = _userRepository.GetUserById(userId);
 
             user.IsVerified = true;
+
+            var account = _accountService.CreateNewAccount(nameof(CurrencyEnum.UAH), user);
+
+            var card = _cardService.CreateNewCard(account);
+
+            account.Card = card;
+
+            user.Account = new List<Account>() { account };
 
             _userRepository.SaveChanges();
         }
