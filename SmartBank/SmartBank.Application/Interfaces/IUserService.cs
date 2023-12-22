@@ -1,6 +1,6 @@
 ﻿using SmartBank.BLL.Dtos.UserDtos;
 
-namespace SmartBank.BLL.Interfaces.IServices
+namespace SmartBank.BLL.Interfaces
 {
     public interface IUserService
     {

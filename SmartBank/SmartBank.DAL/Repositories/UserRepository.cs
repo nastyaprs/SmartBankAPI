@@ -1,4 +1,5 @@
-﻿using SmartBank.BLL.Interfaces.IRepositories;
+﻿using Microsoft.EntityFrameworkCore;
+using SmartBank.BLL.Interfaces.IRepositories;
 using SmartBank.DAL.Data;
 using SmartBank.DAL.Models;
 
@@ -22,6 +23,24 @@ namespace SmartBank.DAL.Repository
         public User? GetUserByEmail(string email)
         {
             return _smartBankDBContext.User.FirstOrDefault(u => u.Email == email);
+        }
+
+        public List<User> GetUnverifiedUsers()
+        {
+            return _smartBankDBContext.User
+                .Include(u => u.Address)
+                .Where(u => u.IsVerified == false)
+                .ToList();
+        }
+
+        public User GetUserById(int id)
+        {
+            return _smartBankDBContext.User.First(u => u.Id == id);
+        }
+
+        public void SaveChanges()
+        {
+            _smartBankDBContext.SaveChanges();
         }
     }
 }

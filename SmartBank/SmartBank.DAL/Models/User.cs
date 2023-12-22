@@ -12,6 +12,7 @@
         public string Email { get; set; } = null!;
         public string PasswordHash { get; set; } = string.Empty;
         public string Role { get; set; } = string.Empty;
+        public bool IsVerified { get; set; } = false;
         public int AddressId { get; set; } 
         public Address Address { get; set; } = null!;
         public DateTime DateIn { get; set; }

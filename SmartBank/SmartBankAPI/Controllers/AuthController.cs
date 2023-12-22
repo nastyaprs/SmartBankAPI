@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SmartBank.BLL.Dtos.UserDtos;
 using SmartBank.BLL.Helper.Constants;
-using SmartBank.BLL.Interfaces.IServices;
+using SmartBank.BLL.Interfaces;
 
 namespace SmartBank.API.Controllers
 {

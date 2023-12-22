@@ -6,5 +6,8 @@ namespace SmartBank.BLL.Interfaces.IRepositories
     {
         Task AddUser(User user);
         User? GetUserByEmail(string email);
+        List<User> GetUnverifiedUsers();
+        User GetUserById(int id);
+        void SaveChanges();
     }
 }
