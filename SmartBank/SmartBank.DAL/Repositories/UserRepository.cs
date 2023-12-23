@@ -22,7 +22,9 @@ namespace SmartBank.DAL.Repository
 
         public User? GetUserByEmail(string email)
         {
-            return _smartBankDBContext.User.FirstOrDefault(u => u.Email == email);
+            return _smartBankDBContext.User
+                .Include(u => u.Address)
+                .FirstOrDefault(u => u.Email == email);
         }
 
         public List<User> GetUnverifiedUsers()

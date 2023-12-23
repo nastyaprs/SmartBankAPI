@@ -1,4 +1,6 @@
-﻿using SmartBank.BLL.Dtos.UserDtos;
+﻿using SmartBank.BLL.Dtos.CategoryDtos;
+using SmartBank.BLL.Dtos.UserDtos;
+using System.Security.Claims;
 
 namespace SmartBank.BLL.Interfaces
 {
@@ -7,5 +9,8 @@ namespace SmartBank.BLL.Interfaces
         Task Register(NewUserDto newUserDto);
         bool UserExists(string email);
         string Login(UserLoginDto userLoginDto);
+        FullUserDto GetUserProfile(ClaimsIdentity identity);
+        List<CategoryDto> GetCategoriesForUser(int userId);
+        void AddNewUsersCategory(int userId, string categoryName);
     }
 }

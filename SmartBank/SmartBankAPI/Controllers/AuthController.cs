@@ -24,7 +24,7 @@ namespace SmartBank.API.Controllers
 
             if (userExists)
             {
-                return BadRequest("Email is taken");
+                return BadRequest(ErrorMessages.EmailIsTaken);
             }
 
             await _userService.Register(newUser);

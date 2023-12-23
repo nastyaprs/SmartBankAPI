@@ -26,7 +26,7 @@ namespace SmartBank.API.Controllers
             return Ok(usersList);
         }
 
-        [HttpPut, Route("user/{id}/verify")]
+        [HttpPut, Route("user/verify/{id}")]
         public IActionResult VerifyUser(int id)
         {
             _adminService.VerifyUser(id);
