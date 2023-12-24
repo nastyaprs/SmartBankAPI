@@ -5,5 +5,6 @@ namespace SmartBank.BLL.Interfaces
     public interface ICardService
     {
         Card CreateNewCard(Account account);
+        Card GetCardById(int id);
     }
 }

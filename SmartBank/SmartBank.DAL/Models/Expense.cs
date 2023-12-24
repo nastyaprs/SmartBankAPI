@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
         public DateTime DateIn { get; set; }
-        public bool IsTransfer { get; set; }
+        public decimal Money { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; } = null!;
         public int CardId { get; set; }

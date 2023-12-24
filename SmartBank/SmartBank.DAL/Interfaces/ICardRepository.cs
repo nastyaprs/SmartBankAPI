@@ -6,5 +6,6 @@ namespace SmartBank.DAL.Interfaces
     {
         Card AddCard(Card card);
         bool CardNumberExists(string number);
+        Card GetCardById(int id);
     }
 }

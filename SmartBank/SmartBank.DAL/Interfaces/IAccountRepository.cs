@@ -7,5 +7,6 @@ namespace SmartBank.DAL.Interfaces
         Account AddAccount(Account account);
         List<Account> GetAccountsByUserId(int userId);
         Account GetAccountById(int id);
+        void SaveChanges();
     }
 }

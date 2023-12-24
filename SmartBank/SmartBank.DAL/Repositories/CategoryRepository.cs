@@ -28,5 +28,15 @@ namespace SmartBank.DAL.Repositories
             _smartBankDBContext.Category.Add(category);
             _smartBankDBContext.SaveChanges();
         }
+
+        public Category? GetCategoryById(int id)
+        {
+            return _smartBankDBContext.Category.FirstOrDefault(c => c.Id == id);
+        }
+
+        public Category GetUndefinedCategory()
+        {
+            return _smartBankDBContext.Category.First(c => c.Id == 11);
+        }
     }
 }

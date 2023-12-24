@@ -92,6 +92,10 @@ namespace SmartBank.DAL.Data
         {
             modelBuilder.Entity<Expense>()
                 .HasKey(m => m.Id);
+
+             modelBuilder.Entity<Expense>()
+            .Property(a => a.Money)
+            .HasColumnType("decimal(18,2)");
         }
 
         private void ConfigureReportTable(ModelBuilder modelBuilder)

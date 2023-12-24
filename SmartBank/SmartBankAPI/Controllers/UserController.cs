@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SmartBank.BLL.Dtos.AccountDtos;
 using SmartBank.BLL.Dtos.CategoryDtos;
+using SmartBank.BLL.Dtos.ExpenseDtos;
 using SmartBank.BLL.Helper.Constants;
 using SmartBank.BLL.Interfaces;
 using System.Security.Claims;
@@ -61,10 +63,31 @@ namespace SmartBank.API.Controllers
             return Ok(details);
         }
 
-        [HttpPost, Route("account/create/{id}")]
-        public IActionResult CreateAccountForUser(int id)
+        [HttpPost, Route("account/create/{userId}/{currencyId}")]
+        public IActionResult CreateAccountForUser(int userId, int currencyId)
         {
-            _userService.CreateNewAccountWithCard(id);
+            _userService.CreateNewAccountWithCard(userId, currencyId);
+
+            return Ok();
+        }
+
+        [HttpPost, Route("account/money/add")]
+        public IActionResult AddMoney([FromBody] AccountMoneyDto accountMoneyDto)
+        {
+            _accountService.AddMoney(accountMoneyDto);
+
+            return Ok();
+        }
+
+        [HttpPost, Route("expense/add")]
+        public IActionResult AddExpense([FromBody] ExpenseAddDto expenseAddDto)
+        {
+            var result = _userService.AddExpence(expenseAddDto.CategoryId, expenseAddDto.CardId, expenseAddDto.Money);
+
+            if(result == false)
+            {
+                return BadRequest();
+            }
 
             return Ok();
         }

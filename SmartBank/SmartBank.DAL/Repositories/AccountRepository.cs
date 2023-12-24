@@ -35,5 +35,10 @@ namespace SmartBank.DAL.Repositories
                 .ThenInclude(e => e.Category)
                 .First(a => a.Id == id);
         }
+
+        public void SaveChanges()
+        {
+            _smartBankDBContext.SaveChanges();
+        }
     }
 }

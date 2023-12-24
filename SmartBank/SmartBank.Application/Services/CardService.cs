@@ -37,5 +37,10 @@ namespace SmartBank.BLL.Services
 
             return number;
         }
+
+        public Card GetCardById(int id)
+        {
+            return _cardRepository.GetCardById(id);
+        }
     }
 }

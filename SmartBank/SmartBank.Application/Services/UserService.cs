@@ -11,6 +11,7 @@ using SmartBank.BLL.Interfaces;
 using SmartBank.BLL.Interfaces.IRepositories;
 using SmartBank.DAL.Interfaces;
 using SmartBank.DAL.Models;
+using SmartBank.DAL.Repositories;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -25,11 +26,12 @@ namespace SmartBank.BLL.Services
         private readonly ICategoryRepository _categoryRepository;
         private readonly IAccountService _accountService;
         private readonly ICardService _cardService;
+        private readonly IExpenseRepository _expenseRepository;
 
         public UserService(IUserRepository userRepository, 
             IAddressRepository addressRepository, IConfiguration configuration, 
             ICategoryRepository categoryRepository, IAccountService accountService, 
-            ICardService cardService)
+            ICardService cardService, IExpenseRepository expenseRepository)
         {
             _userRepository = userRepository;
             _addressRepository = addressRepository;
@@ -37,6 +39,7 @@ namespace SmartBank.BLL.Services
             _categoryRepository = categoryRepository;
             _accountService = accountService;
             _cardService = cardService;
+            _expenseRepository = expenseRepository;
         }
 
         public async Task Register(NewUserDto newUserDto)
@@ -197,11 +200,15 @@ namespace SmartBank.BLL.Services
             _categoryRepository.AddCategory(category);
         }
 
-        public void CreateNewAccountWithCard(int userId)
+        public void CreateNewAccountWithCard(int userId, int currencyId)
         {
             var user = _userRepository.GetUserById(userId);
 
-            var account = _accountService.CreateNewAccount(nameof(CurrencyEnum.UAH), user);
+            int currencyValue = currencyId = 1;
+
+            CurrencyEnum currency = (CurrencyEnum)currencyId;
+
+            var account = _accountService.CreateNewAccount(currency.ToString(), user);
 
             var card = _cardService.CreateNewCard(account);
 
@@ -210,6 +217,49 @@ namespace SmartBank.BLL.Services
             user.Account = new List<Account>() { account };
 
             _userRepository.SaveChanges();
+        }
+
+        public bool AddExpence(int categoryId, int cardId, decimal money)
+        {
+            var card = _cardService.GetCardById(cardId);
+
+            if (card.Account.AmountOfMoney < money)
+            {
+                return false;
+            }
+
+            var expense = new Expense()
+            {
+                DateIn = DateTime.Now,
+                CardId = cardId,
+                Card = card,
+                Money = money
+            };
+
+            var category = _categoryRepository.GetCategoryById(categoryId);
+
+            if (category != null)
+            {
+                expense.CategoryId = category.Id;
+                expense.Category = category;
+            }
+            else
+            {
+                category = _categoryRepository.GetUndefinedCategory();
+
+                expense.CategoryId = category.Id;
+                expense.Category = category;
+            }
+
+            card.Account.AmountOfMoney -= money;
+
+            expense = _expenseRepository.AddExpense(expense);
+
+            card.Expense.Add(expense);
+
+            _userRepository.SaveChanges();
+
+            return true;
         }
     }
 }

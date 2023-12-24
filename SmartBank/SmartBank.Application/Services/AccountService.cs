@@ -58,7 +58,8 @@ namespace SmartBank.BLL.Services
                 AmountOfMoney = account.AmountOfMoney,
                 Currency = account.Currency,
                 DateIn = account.DateIn,
-                CardNumber = account.Card.Number
+                CardNumber = account.Card.Number,
+                UserId = account.UserId
             };
 
             foreach(var expense in account.Card.Expense)
@@ -67,11 +68,21 @@ namespace SmartBank.BLL.Services
                 {
                     Id = expense.Id,
                     DateIn = expense.DateIn,
-                    CategoryName = expense.Category.CategoryName
+                    CategoryName = expense.Category.CategoryName,
+                    Money = expense.Money
                 });
             }
 
             return details;
+        }
+
+        public void AddMoney(AccountMoneyDto accountMoneyDto)
+        {
+            var account = _accountRepository.GetAccountById(accountMoneyDto.Id);
+
+            account.AmountOfMoney += accountMoneyDto.AmountOfMoneyToAdd;
+
+            _accountRepository.SaveChanges();
         }
     }
 }

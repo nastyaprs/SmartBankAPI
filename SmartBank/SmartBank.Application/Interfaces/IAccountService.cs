@@ -8,6 +8,6 @@ namespace SmartBank.BLL.Interfaces
         Account CreateNewAccount(string currency, User user);
         List<AccountDto> GetUsersAccounts(int userId);
         AccountDetailsDto GetAccountDetails(int accountId);
-
+        void AddMoney(AccountMoneyDto accountMoneyDto);
     }
 }

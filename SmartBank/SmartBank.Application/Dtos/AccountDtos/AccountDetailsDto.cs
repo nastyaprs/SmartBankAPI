@@ -10,5 +10,6 @@ namespace SmartBank.BLL.Dtos.AccountDtos
         public DateTime DateIn { get; set; }
         public string CardNumber { get; set; } = null!;
         public List<ExpenseDto> Expenses { get; set; } = new List<ExpenseDto>();
+        public int? UserId { get; set; }
     }
 }
