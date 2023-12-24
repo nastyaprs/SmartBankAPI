@@ -6,6 +6,7 @@ using SmartBank.BLL.Dtos.AddressDtos;
 using SmartBank.BLL.Dtos.CategoryDtos;
 using SmartBank.BLL.Dtos.UserDtos;
 using SmartBank.BLL.Helper.Constants;
+using SmartBank.BLL.Helper.Enums;
 using SmartBank.BLL.Interfaces;
 using SmartBank.BLL.Interfaces.IRepositories;
 using SmartBank.DAL.Interfaces;
@@ -22,14 +23,20 @@ namespace SmartBank.BLL.Services
         private readonly IAddressRepository _addressRepository;
         private readonly IConfiguration _configuration;
         private readonly ICategoryRepository _categoryRepository;
+        private readonly IAccountService _accountService;
+        private readonly ICardService _cardService;
 
-        public UserService(IUserRepository userRepository, IAddressRepository addressRepository,
-            IConfiguration configuration, ICategoryRepository categoryRepository)
+        public UserService(IUserRepository userRepository, 
+            IAddressRepository addressRepository, IConfiguration configuration, 
+            ICategoryRepository categoryRepository, IAccountService accountService, 
+            ICardService cardService)
         {
             _userRepository = userRepository;
             _addressRepository = addressRepository;
             _configuration = configuration;
             _categoryRepository = categoryRepository;
+            _accountService = accountService;
+            _cardService = cardService;
         }
 
         public async Task Register(NewUserDto newUserDto)
@@ -188,6 +195,21 @@ namespace SmartBank.BLL.Services
             };
 
             _categoryRepository.AddCategory(category);
+        }
+
+        public void CreateNewAccountWithCard(int userId)
+        {
+            var user = _userRepository.GetUserById(userId);
+
+            var account = _accountService.CreateNewAccount(nameof(CurrencyEnum.UAH), user);
+
+            var card = _cardService.CreateNewCard(account);
+
+            account.Card = card;
+
+            user.Account = new List<Account>() { account };
+
+            _userRepository.SaveChanges();
         }
     }
 }

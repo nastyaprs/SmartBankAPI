@@ -12,5 +12,6 @@ namespace SmartBank.BLL.Interfaces
         FullUserDto GetUserProfile(ClaimsIdentity identity);
         List<CategoryDto> GetCategoriesForUser(int userId);
         void AddNewUsersCategory(int userId, string categoryName);
+        void CreateNewAccountWithCard(int userId);
     }
 }

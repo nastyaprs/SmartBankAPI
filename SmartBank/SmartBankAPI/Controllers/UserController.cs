@@ -13,10 +13,12 @@ namespace SmartBank.API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IAccountService _accountService;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IAccountService accountService)
         {
             _userService = userService;
+            _accountService = accountService;
         }
 
         [HttpGet, Route("profile")]
@@ -39,6 +41,30 @@ namespace SmartBank.API.Controllers
         public IActionResult AddNewCategory(int id, [FromBody] CategoryDto categoryDto)
         {
             _userService.AddNewUsersCategory(id, categoryDto.Name);
+
+            return Ok();
+        }
+
+        [HttpGet, Route("account/list/{id}")]
+        public IActionResult GetAccountsByUserId(int id)
+        {
+            var accounts = _accountService.GetUsersAccounts(id);
+
+            return Ok(accounts);
+        }
+
+        [HttpGet, Route("account/details/{id}")] //accountId
+        public IActionResult GetAccountDetails(int id)
+        {
+            var details = _accountService.GetAccountDetails(id);
+
+            return Ok(details);
+        }
+
+        [HttpPost, Route("account/create/{id}")]
+        public IActionResult CreateAccountForUser(int id)
+        {
+            _userService.CreateNewAccountWithCard(id);
 
             return Ok();
         }
