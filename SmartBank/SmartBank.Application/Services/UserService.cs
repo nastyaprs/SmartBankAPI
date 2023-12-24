@@ -219,9 +219,11 @@ namespace SmartBank.BLL.Services
             _userRepository.SaveChanges();
         }
 
-        public bool AddExpence(int categoryId, int cardId, decimal money)
+        public bool AddExpense(int categoryId, int accountId, decimal money)
         {
-            var card = _cardService.GetCardById(cardId);
+            var account = _accountService.GetAccountDetails(accountId);
+
+            var card = _cardService.GetCardById(account.CardId);
 
             if (card.Account.AmountOfMoney < money)
             {
@@ -231,7 +233,7 @@ namespace SmartBank.BLL.Services
             var expense = new Expense()
             {
                 DateIn = DateTime.Now,
-                CardId = cardId,
+                CardId = card.Id,
                 Card = card,
                 Money = money
             };

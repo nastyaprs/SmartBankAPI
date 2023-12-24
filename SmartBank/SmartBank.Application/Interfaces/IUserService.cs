@@ -13,6 +13,6 @@ namespace SmartBank.BLL.Interfaces
         List<CategoryDto> GetCategoriesForUser(int userId);
         void AddNewUsersCategory(int userId, string categoryName);
         void CreateNewAccountWithCard(int userId, int currencyId);
-        bool AddExpence(int categoryId, int cardId, decimal money);
+        bool AddExpense(int categoryId, int accountId, decimal money);
     }
 }

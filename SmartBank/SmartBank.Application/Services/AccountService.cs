@@ -59,7 +59,8 @@ namespace SmartBank.BLL.Services
                 Currency = account.Currency,
                 DateIn = account.DateIn,
                 CardNumber = account.Card.Number,
-                UserId = account.UserId
+                UserId = account.UserId,
+                CardId = account.Card.Id
             };
 
             foreach(var expense in account.Card.Expense)

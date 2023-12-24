@@ -82,7 +82,7 @@ namespace SmartBank.API.Controllers
         [HttpPost, Route("expense/add")]
         public IActionResult AddExpense([FromBody] ExpenseAddDto expenseAddDto)
         {
-            var result = _userService.AddExpence(expenseAddDto.CategoryId, expenseAddDto.CardId, expenseAddDto.Money);
+            var result = _userService.AddExpense(expenseAddDto.CategoryId, expenseAddDto.AccountId, expenseAddDto.Money);
 
             if(result == false)
             {
