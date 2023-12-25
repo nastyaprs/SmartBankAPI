@@ -23,7 +23,9 @@ namespace SmartBank.BLL.Services
             Report report = new Report
             {
                 UserId = userId,
-                DateIn = DateTime.Now 
+                DateIn = DateTime.Now,
+                DateFrom = dateFrom,
+                DateTo = dateTo
             };
 
             var expences = _reportRepository.GetAllUserExpencesByDate(userId, dateFrom, dateTo);
@@ -59,24 +61,24 @@ namespace SmartBank.BLL.Services
         private void UpdateCategoryDiagram(Report report, string currency, Dictionary<string, decimal> categoryAmounts)
         {
             report.Content += $"<p>Currency: {currency}</p>";
-            report.Content += $"<canvas id='chart_{currency}' width='150' height='150'></canvas>{Environment.NewLine}";
-            report.Content += $"<script src='https://cdn.jsdelivr.net/npm/chart.js'></script>{Environment.NewLine}";
-            report.Content += "<script>{Environment.NewLine}";
-            report.Content += $"    var ctx = document.getElementById('chart_{currency}').getContext('2d');{Environment.NewLine}";
-            report.Content += $"    var myChart = new Chart(ctx, {{{Environment.NewLine}";
-            report.Content += $"        type: 'doughnut',{Environment.NewLine}";
-            report.Content += $"        data: {{{Environment.NewLine}";
-            report.Content += $"            labels: {JsonConvert.SerializeObject(categoryAmounts.Keys)},{Environment.NewLine}";
-            report.Content += $"            datasets: [{Environment.NewLine}";
-            report.Content += $"                data: {JsonConvert.SerializeObject(categoryAmounts.Values)},{Environment.NewLine}";
-            report.Content += $"                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#8B4513', '#008080'] // Add more colors if needed{Environment.NewLine}";
-            report.Content += $"            }}]{Environment.NewLine}";
-            report.Content += $"        }}{Environment.NewLine}";
-            report.Content += $"    }});{Environment.NewLine}";
-            report.Content += "</script>{Environment.NewLine}";
 
+            report.Content += $@"
+    <canvas id='chart_{currency}' width='300' height='300'></canvas>
+    <script src='https://cdn.jsdelivr.net/npm/chart.js'></script>
+    <script>
+        var ctx = document.getElementById('chart_{currency}').getContext('2d');
+        var myChart = new Chart(ctx, {{
+            type: 'doughnut',
+            data: {{
+                labels: {JsonConvert.SerializeObject(categoryAmounts.Keys)},
+                datasets: [{{
+                    data: {JsonConvert.SerializeObject(categoryAmounts.Values)},
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#8B4513', '#008080'] 
+                }}]
+            }}
+        }});
+    </script>";
 
-            report.Content = report.Content.Replace("\r\n", "\n");
         }
 
         public List<ReportDto> GetReports(ClaimsIdentity claimsIdentity)
@@ -93,7 +95,9 @@ namespace SmartBank.BLL.Services
                     Id = report.Id,
                     UserId = report.UserId,
                     DateIn = report.DateIn,
-                    Content = report.Content
+                    Content = report.Content,
+                    DateFrom = report.DateFrom,
+                    DateTo = report.DateTo
                 });
             }
 

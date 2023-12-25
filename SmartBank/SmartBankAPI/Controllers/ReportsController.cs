@@ -10,7 +10,7 @@ namespace SmartBank.API.Controllers
 {
     [Route("report/")]
     [ApiController]
-    //[Authorize(Roles = Roles.User)]
+    [Authorize(Roles = Roles.User)]
     public class ReportsController : ControllerBase
     {
         private readonly IReportService _reportService;

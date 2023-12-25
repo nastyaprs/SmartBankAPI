@@ -7,5 +7,7 @@
         public string Content { get; set; } = string.Empty;
         public int UserId { get; set; }
         public User User { get; set; } = null!;
+        public DateTime DateFrom { get; set; }
+        public DateTime DateTo { get; set; }
     }
 }
