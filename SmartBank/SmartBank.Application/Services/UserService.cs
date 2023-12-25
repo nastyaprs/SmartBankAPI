@@ -14,6 +14,7 @@ using SmartBank.DAL.Models;
 using SmartBank.DAL.Repositories;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Principal;
 using System.Text;
 
 namespace SmartBank.BLL.Services
@@ -127,10 +128,7 @@ namespace SmartBank.BLL.Services
 
         public FullUserDto GetUserProfile(ClaimsIdentity identity)
         {
-            var claims = identity.Claims.ToList();
-            var userEmail = claims.FirstOrDefault(x => x.Type.Equals("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress", StringComparison.OrdinalIgnoreCase))?.Value;
-
-            var user = _userRepository.GetUserByEmail(userEmail);
+            var user = GetUserByToken(identity);
 
             return new FullUserDto
             {
@@ -262,6 +260,16 @@ namespace SmartBank.BLL.Services
             _userRepository.SaveChanges();
 
             return true;
+        }
+
+        public User GetUserByToken(ClaimsIdentity identity)
+        {
+            var claims = identity.Claims.ToList();
+            var userEmail = claims.FirstOrDefault(x => x.Type.Equals("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress", StringComparison.OrdinalIgnoreCase))?.Value;
+
+            var user = _userRepository.GetUserByEmail(userEmail);
+
+            return user;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using SmartBank.BLL.Dtos.CategoryDtos;
 using SmartBank.BLL.Dtos.UserDtos;
+using SmartBank.DAL.Models;
 using System.Security.Claims;
 
 namespace SmartBank.BLL.Interfaces
@@ -14,5 +15,6 @@ namespace SmartBank.BLL.Interfaces
         void AddNewUsersCategory(int userId, string categoryName);
         void CreateNewAccountWithCard(int userId, int currencyId);
         bool AddExpense(int categoryId, int accountId, decimal money);
+        User GetUserByToken(ClaimsIdentity identity);
     }
 }

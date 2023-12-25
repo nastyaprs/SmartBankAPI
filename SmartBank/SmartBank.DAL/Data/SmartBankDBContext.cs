@@ -103,10 +103,6 @@ namespace SmartBank.DAL.Data
             modelBuilder.Entity<Report>()
                 .HasKey(m => m.Id);
 
-
-            modelBuilder.Entity<Report>()
-                .Property(r => r.SpendedMoneyAmount)
-                .HasColumnType("decimal(18,2)");
         }
 
         private void ConfigureUserTable(ModelBuilder modelBuilder)

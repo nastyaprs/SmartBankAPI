@@ -1,11 +1,10 @@
-﻿namespace SmartBank.DAL.Models
+﻿namespace SmartBank.BLL.Dtos.ReportDtos
 {
-    public class Report
+    public class ReportDto
     {
         public int Id { get; set; }
         public DateTime DateIn { get; set; }
         public string Content { get; set; } = string.Empty;
         public int UserId { get; set; }
-        public User User { get; set; } = null!;
     }
 }
