@@ -22,7 +22,8 @@ namespace SmartBank.DAL.Repositories
             return report;
         }
 
-        public Dictionary<string,Dictionary<string,List<Expense>>> GetAllUserExpencesByDate(int userId, DateTime dateFrom, DateTime dateTo)
+        public Dictionary<string,Dictionary<string,List<Expense>>> GetAllUserExpencesByDate(int userId, 
+            DateTime dateFrom, DateTime dateTo)
         {
             return _smartBankDBContext.Expense
              .Include(e=> e.Category)
